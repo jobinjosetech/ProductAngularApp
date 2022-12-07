@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Route, Router } from '@angular/router';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-add-product',
@@ -6,27 +8,42 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent {
-  productCode=""
-  productName=""
-  manufacturingDate=""
-  expiryDate=""
-  brand=""
-  price=""
-  sellerName=""
-  distributorName=""
+  constructor(private api: ApiService, private route:Router) { }
+  productCode = ""
+  productName = ""
+  manufacturingDate = ""
+  expiryDate = ""
+  brand = ""
+  price = ""
+  sellerName = ""
+  distributorName = ""
 
-  readValue=()=>{
-    let product:any = 
-      {
-        "productCode":this.productCode,
-        "productName":this.productName,
-        "manufacturingDate":this.manufacturingDate,
-        "expiryDate":this.expiryDate,
-        "brand":this.brand,
-        "price":this.price,
-        "sellerName":this.sellerName,
-        "distributorName":this.distributorName
+  readValue = () => {
+    let product: any =
+    {
+      "productCode": this.productCode,
+      "productName": this.productName,
+      "manufacturingDate": this.manufacturingDate,
+      "expiryDate": this.expiryDate,
+      "brand": this.brand,
+      "price": this.price,
+      "sellerName": this.sellerName,
+      "distributorName": this.distributorName
+    }
+    this.api.sendData(product).subscribe(
+      (response) => {
+
       }
-      console.log(product)
+    )
+    this.productCode = ""
+    this.productName = ""
+    this.manufacturingDate = ""
+    this.expiryDate = ""
+    this.brand = ""
+    this.price = ""
+    this.sellerName = ""
+    this.distributorName = ""
+    this.route.navigate(["/"])
+    console.log(product)
   }
 }
